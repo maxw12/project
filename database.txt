@@ -1,0 +1,52 @@
+-- create a table
+CREATE TABLE Users (
+  User_id INT NOT NULL auto_increment,
+  Uname varchar(255) NOT NULL,
+  Upassword varchar(255) NOT NULL,
+  Utype varchar(100) NOT NULL,
+  Fullname varchar(255) NOT NULL,
+  Email varchar(255) NOT NULL,
+  primary key(User_id),
+  unique key(Email)
+);
+
+CREATE TABLE course (
+  Course_id INT NOT NULL auto_increment,
+  CourseName varchar(255) NOT NULL,
+  NumOfStudents INT NOT NULL,
+  User_id int,
+  primary key(Course_id),
+  foreign key(User_id) references Users(User_id)
+);
+
+CREATE TABLE submission (
+  Submission_id INT NOT NULL auto_increment,
+  Submission_date datetime default on update,
+  Url varchar(255),
+  User_id INT,
+  Course_id INT,
+  primary key(Submission_id),
+  foreign key(User_id) references Users(User_id),
+  foreign key(Course_id) references course(Course_id)
+);
+
+CREATE TABLE likes(
+  Like_id INT NOT NULL auto_increment,
+  User_id INT,
+  Submission_id INT,
+  primary key(Like_id),
+  foreign key(User_id) references Users(User_id),
+  foreign key(Submission_id) references submission(Submission_id)
+);
+
+CREATE TABLE comments(
+  Comment_id INT NOT NULL auto_increment,
+  Comment_date datetime default on update,
+  Comments varchar(255) NOT NULL,
+  User_id INT,
+  Submission_id INT,
+  primary key(Comment_id),
+  foreign key(User_id) references Users(User_id),
+  foreign key(Submission_id) references submission(Submission_id)
+);
+
