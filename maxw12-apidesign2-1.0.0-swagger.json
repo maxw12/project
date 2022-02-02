@@ -1,0 +1,1417 @@
+{
+  "openapi" : "3.0.0",
+  "servers" : [ {
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/maxw12/apidesign2/1.0.0"
+  } ],
+  "info" : {
+    "description" : "This is a simple API",
+    "version" : "1.0.0",
+    "title" : "Simple Inventory API",
+    "contact" : {
+      "email" : "you@your-company.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "submission",
+    "description" : "operations for all submissions"
+  }, {
+    "name" : "comment",
+    "description" : "Operations for all comments"
+  }, {
+    "name" : "user",
+    "description" : "Operation for all users"
+  }, {
+    "name" : "course",
+    "description" : "Operation for all courses"
+  } ],
+  "paths" : {
+    "/submissions" : {
+      "get" : {
+        "tags" : [ "submission" ],
+        "summary" : "get all submissions",
+        "description" : "get all submissions from database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "course",
+          "description" : "select the submissions from the specified course",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "request successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "required" : [ "submissionId" ],
+                    "properties" : {
+                      "submission_date" : {
+                        "type" : "string"
+                      },
+                      "submission_url" : {
+                        "type" : "string"
+                      },
+                      "user_id" : {
+                        "type" : "integer"
+                      },
+                      "course_id" : {
+                        "type" : "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "submission" ],
+        "summary" : "create a new submission",
+        "operationId" : "createSubmission",
+        "description" : "create a new submission and add into the database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "submission",
+          "description" : "send a new submission to database",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "upload successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid submission",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submissionId}" : {
+      "get" : {
+        "tags" : [ "submission" ],
+        "summary" : "find submission with id",
+        "operationId" : "getSubmission_id",
+        "description" : "get a submission with id from the database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "submissionId",
+          "description" : "find a submission using id",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "request successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "required" : [ "submission_id" ],
+                    "properties" : {
+                      "submission_date" : {
+                        "type" : "string"
+                      },
+                      "submission_url" : {
+                        "type" : "string"
+                      },
+                      "user_id" : {
+                        "type" : "integer"
+                      },
+                      "course_id" : {
+                        "type" : "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid submission",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "id not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "submission" ],
+        "summary" : "update submission with id",
+        "operationId" : "updateSubmission_id",
+        "description" : "update a submission with id from the database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "submissionId",
+          "description" : "update a submission using id",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "in" : "query",
+          "name" : "changes",
+          "description" : "update a submission using id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "update successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "required" : [ "submission_id" ],
+                    "properties" : {
+                      "submission_date" : {
+                        "type" : "string"
+                      },
+                      "submission_url" : {
+                        "type" : "string"
+                      },
+                      "user_id" : {
+                        "type" : "integer"
+                      },
+                      "course_id" : {
+                        "type" : "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid submission",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "id not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "submission" ],
+        "summary" : "delete submission with id",
+        "operationId" : "deleteSubmission_id",
+        "description" : "delete a submission with id from the database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "submissionId",
+          "description" : "delete a submission using id",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "delete successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid submission",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "id not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submissionId}/comments" : {
+      "get" : {
+        "tags" : [ "submission" ],
+        "summary" : "get comments for a submission",
+        "description" : "get comments to the submission with id",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "submissionId",
+          "description" : "select the corret submission",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "upload successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "comment not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "submission" ],
+        "summary" : "update a comment to a submission",
+        "description" : "update a comment to the submission with id",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "submissionId",
+          "description" : "select the corret submission",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "upload successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "comment not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submissionId}/upvote" : {
+      "post" : {
+        "tags" : [ "submission" ],
+        "summary" : "upvote on a submission",
+        "description" : "upvote on a submission with id",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "submissionId",
+          "description" : "select the corret submission",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "upload successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "comment not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/comments" : {
+      "post" : {
+        "tags" : [ "comment" ],
+        "summary" : "add a comment",
+        "description" : "add a comment with id to the database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "submissionId",
+          "description" : "select the comments from the specified submission",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "upload successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "comment not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get" : {
+        "tags" : [ "comment" ],
+        "summary" : "get all comments",
+        "description" : "get all comments from database",
+        "responses" : {
+          "200" : {
+            "description" : "request successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "required" : [ "commentId" ],
+                    "properties" : {
+                      "comment_date" : {
+                        "type" : "string"
+                      },
+                      "comment" : {
+                        "type" : "string"
+                      },
+                      "user_id" : {
+                        "type" : "integer"
+                      },
+                      "course_id" : {
+                        "type" : "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/comments/{commentId}" : {
+      "get" : {
+        "tags" : [ "comment" ],
+        "summary" : "get a comment for a submission",
+        "description" : "get a comment from database with an id",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "submissionId",
+          "description" : "select the comments from the specified submission",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "commentId",
+          "description" : "select the comment with the id from the database",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "request successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "required" : [ "commentId" ],
+                    "properties" : {
+                      "comment_date" : {
+                        "type" : "string"
+                      },
+                      "comment" : {
+                        "type" : "string"
+                      },
+                      "user_id" : {
+                        "type" : "integer"
+                      },
+                      "course_id" : {
+                        "type" : "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "comment not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "comment" ],
+        "summary" : "update a comment",
+        "description" : "update a comment with id to the database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "submissionId",
+          "description" : "select the comments from the specified submission",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "commentId",
+          "description" : "select the comment with id from the specified submission",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "request successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "comment not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "comment" ],
+        "summary" : "delete a comment",
+        "description" : "delete a comment with id from the database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "submissionId",
+          "description" : "select the comments from the specified submission",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "commentId",
+          "description" : "select the comment with id from the specified submission",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "delete successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "comment not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "get all users from database",
+        "description" : "get users from database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "course",
+          "description" : "select the users from a specified course",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "request successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "required" : [ "userId" ],
+                    "properties" : {
+                      "username" : {
+                        "type" : "string"
+                      },
+                      "password" : {
+                        "type" : "string"
+                      },
+                      "user_type" : {
+                        "type" : "string"
+                      },
+                      "name" : {
+                        "type" : "string"
+                      },
+                      "email" : {
+                        "type" : "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "user" ],
+        "summary" : "add an user",
+        "description" : "Adds a user to the system",
+        "responses" : {
+          "201" : {
+            "description" : "user created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing user already exists"
+          }
+        },
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "get a user with id",
+        "description" : "get a user from database with specified id",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "userId",
+          "description" : "select the user with the specified id",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "request successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "required" : [ "userId" ],
+                    "properties" : {
+                      "username" : {
+                        "type" : "string"
+                      },
+                      "password" : {
+                        "type" : "string"
+                      },
+                      "user_type" : {
+                        "type" : "string"
+                      },
+                      "name" : {
+                        "type" : "string"
+                      },
+                      "email" : {
+                        "type" : "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "user not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "user" ],
+        "summary" : "update a user information",
+        "description" : "update a user information with id to the database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "userId",
+          "description" : "select the comments from the specified submission",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "update successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "comment not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "user" ],
+        "summary" : "delete a user",
+        "description" : "delete a user with id from the database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "userId",
+          "description" : "delete the user with a specified id from the database",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "delete successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "user not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/submissions" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "find submission for user with id",
+        "description" : "get all submissions for user with specified id from the database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "userId",
+          "description" : "find submissions with user id",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "request successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "required" : [ "submission_id" ],
+                    "properties" : {
+                      "submission_date" : {
+                        "type" : "string"
+                      },
+                      "submission_url" : {
+                        "type" : "string"
+                      },
+                      "user_id" : {
+                        "type" : "integer"
+                      },
+                      "course_id" : {
+                        "type" : "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid submission",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "id not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "user" ],
+        "summary" : "update a submission",
+        "description" : "update a submission with id to the database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "submissionId",
+          "description" : "select the submission from the specified user",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "upload successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "comment not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/comments" : {
+      "put" : {
+        "tags" : [ "user" ],
+        "summary" : "update a comment",
+        "description" : "update a comment with id to the database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "commentId",
+          "description" : "select the comments from the specified user",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "upload successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "comment not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "get all comments for a user",
+        "description" : "get all comments for a user from database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "userId",
+          "description" : "select the comments from the specified user",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "request successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "required" : [ "commentId" ],
+                    "properties" : {
+                      "comment_date" : {
+                        "type" : "string"
+                      },
+                      "comment" : {
+                        "type" : "string"
+                      },
+                      "user_id" : {
+                        "type" : "integer"
+                      },
+                      "course_id" : {
+                        "type" : "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course" : {
+      "get" : {
+        "tags" : [ "course" ],
+        "summary" : "get all courses",
+        "description" : "get all courses from database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "course",
+          "description" : "select the course",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "request successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "required" : [ "courseId" ],
+                    "properties" : {
+                      "course_name" : {
+                        "type" : "string"
+                      },
+                      "numOfStdOnCourse" : {
+                        "type" : "integer"
+                      },
+                      "userId" : {
+                        "type" : "integer"
+                      },
+                      "submissions" : {
+                        "type" : "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{courseId}" : {
+      "get" : {
+        "tags" : [ "course" ],
+        "summary" : "get course with id",
+        "description" : "get course with id from database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "courseId",
+          "description" : "select the course",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "request successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "required" : [ "courseId" ],
+                    "properties" : {
+                      "course_name" : {
+                        "type" : "string"
+                      },
+                      "numOfStdOnCourse" : {
+                        "type" : "integer"
+                      },
+                      "userId" : {
+                        "type" : "integer"
+                      },
+                      "submissions" : {
+                        "type" : "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{courseId}/submissions" : {
+      "get" : {
+        "tags" : [ "course" ],
+        "summary" : "get all submissions in course with id",
+        "description" : "get all submissions for course with id from database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "courseId",
+          "description" : "select the course",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "request successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "required" : [ "submissionId" ],
+                    "properties" : {
+                      "submission_date" : {
+                        "type" : "string"
+                      },
+                      "submission_url" : {
+                        "type" : "string"
+                      },
+                      "user_id" : {
+                        "type" : "integer"
+                      },
+                      "course_id" : {
+                        "type" : "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{courseId}/users" : {
+      "get" : {
+        "tags" : [ "course" ],
+        "summary" : "get all users in course with id",
+        "description" : "get all users for course with id from database",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "courseId",
+          "description" : "select the course",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "request successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "required" : [ "userId" ],
+                    "properties" : {
+                      "username" : {
+                        "type" : "string"
+                      },
+                      "password" : {
+                        "type" : "string"
+                      },
+                      "user_type" : {
+                        "type" : "string"
+                      },
+                      "name" : {
+                        "type" : "string"
+                      },
+                      "email" : {
+                        "type" : "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "invalid request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
