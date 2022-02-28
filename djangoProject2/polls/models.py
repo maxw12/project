@@ -1,9 +1,52 @@
 import datetime
+import uuid
+
 from django.db import models
 from django.utils import timezone
 
 
 # Create your models here.
+class User(models.Model):
+    user_id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False)
+    username = models.CharField(max_length=200)
+    password = models.CharField
+    USER_TYPE =  [(0, "Student"), (1, "Staff")]
+    user_type = models.CharField(
+        max_length=2,
+        choices=USER_TYPE ,
+    )
+    fullname = models.CharField(max_length=200)
+    email = models.CharField(max_length=200)
+
+
+class Course(models.Model):
+    course_id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False)
+    course_name = models.CharField(max_length=200)
+    num_of_std = models.IntegerField()
+
+
+class Submission(models.Model):
+    submission_id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False)
+    title = models.CharField(max_length=255)
+    pub_date = models.DateTimeField('date published')
+    url = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
+
+
+datetime.timedelta(days=1)
+
+
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
@@ -14,9 +57,6 @@ class Question(models.Model):
     def was_published_recently(self):
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
-
-
-datetime.timedelta(days=1)
 
 
 class Choice(models.Model):
