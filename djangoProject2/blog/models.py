@@ -35,10 +35,10 @@ class User(models.Model):
 
 
 class Submission(models.Model):
-    submission_id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False)
+    # submission_id = models.UUIDField(
+    #     primary_key=True,
+    #     default=uuid.uuid4,
+    #     editable=False)
     title = models.CharField(max_length=255)
     pub_date = models.DateTimeField(default=timezone.now)
     url = models.CharField(max_length=255)
@@ -51,16 +51,16 @@ class Submission(models.Model):
 datetime.timedelta(days=1)
 
 
-class Comment(models.Model):
-    comment_id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False)
-    comment_date = models.DateTimeField(auto_now_add=True)
-    content = models.TextField()
-
-    def __str__(self):
-        return self.content
+# class Comment(models.Model):
+#     comment_id = models.UUIDField(
+#         primary_key=True,
+#         default=uuid.uuid4,
+#         editable=False)
+#     comment_date = models.DateTimeField(auto_now_add=True)
+#     content = models.TextField()
+#
+#     def __str__(self):
+#         return self.content
 
 
 class Question(models.Model):
