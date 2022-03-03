@@ -1,0 +1,14 @@
+{% load static %}
+
+<!--<link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">-->
+
+
+{% if latest_submission_list %}
+    <ul>
+    {% for submission in latest_submission_list %}
+        <li><a href="{% url 'blog:detail' submission.submission_id%}">{{ submission.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No submissions are available.</p>
+{% endif %}
