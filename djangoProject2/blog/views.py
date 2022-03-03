@@ -19,10 +19,10 @@ class IndexView(generic.ListView):
 
 class DetailView(generic.DetailView):
     template_name = 'blog/detail.html'
-    model = Submission
+    model = Question
 
     def get_queryset(self):
-        return Submission.objects.filter(pub_date__lte=timezone.now())
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 
 class ResultsView(generic.DetailView):
