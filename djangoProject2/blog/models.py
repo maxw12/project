@@ -42,7 +42,8 @@ class Submission(models.Model):
     title = models.CharField(max_length=255)
     pub_date = models.DateTimeField(default=timezone.now)
     url = models.CharField(max_length=255)
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField(blank=True)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE) # how to add foreign key
 
     def __str__(self):
         return self.title
