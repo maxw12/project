@@ -13,7 +13,8 @@ class CreateSubmissionForm(BSModalModelForm):
     title = forms.CharField(max_length=255)
     pub_date = forms.DateField(initial=datetime.date.today)
     url = forms.CharField(max_length=255)
+    content = forms.Textarea()
 
     class Meta:
         model = Submission
-        fields = ('title', 'pub_date', 'url', )
+        fields = ('title', 'pub_date', 'url', 'content')
